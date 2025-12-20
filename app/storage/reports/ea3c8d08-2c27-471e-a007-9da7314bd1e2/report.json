@@ -1,0 +1,374 @@
+{
+  "dataset_id": "ea3c8d08-2c27-471e-a007-9da7314bd1e2",
+  "generated_at": "2025-12-19T17:29:11.247252",
+  "initial_score": 100,
+  "final_score": 100,
+  "improvement": 0,
+  "initial_metrics": {
+    "missing_ratio": 0.0,
+    "duplicate_ratio": 0.0,
+    "low_variance_ratio": 0.0,
+    "skewness_ratio": 0.0
+  },
+  "final_metrics": {
+    "missing_ratio": 0.0,
+    "duplicate_ratio": 0.0,
+    "low_variance_ratio": 0.0,
+    "skewness_ratio": 0.0
+  },
+  "feature_diagnostics": [
+    {
+      "feature": "work_hours",
+      "missing_percentage": 0.0,
+      "unique_values": 19,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "sleep_quality",
+      "missing_percentage": 0.0,
+      "unique_values": 7,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "exercise_frequency",
+      "missing_percentage": 0.0,
+      "unique_values": 7,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "social_support",
+      "missing_percentage": 0.0,
+      "unique_values": 8,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "workload",
+      "missing_percentage": 0.0,
+      "unique_values": 10,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "job_satisfaction",
+      "missing_percentage": 0.0,
+      "unique_values": 10,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "stress_level",
+      "missing_percentage": 0.0,
+      "unique_values": 9,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "anxiety_level",
+      "missing_percentage": 0.0,
+      "unique_values": 10,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "mood",
+      "missing_percentage": 0.0,
+      "unique_values": 10,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "personal_life_satisfaction",
+      "missing_percentage": 0.0,
+      "unique_values": 9,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "High Risk"
+        ],
+        "reason": [
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop or Transform"
+        ]
+      }
+    },
+    {
+      "feature": "burnout_score",
+      "missing_percentage": 0.0,
+      "unique_values": 20,
+      "dtype": "int64",
+      "quality_flags": [
+        "Safe"
+      ],
+      "risk_analysis": {
+        "risk_label": [
+          "Leakage-Prone",
+          "High Risk"
+        ],
+        "reason": [
+          "High cardinality (ID-like)",
+          "High multicollinearity (VIF)"
+        ],
+        "suggested_action": [
+          "Drop",
+          "Drop or Transform"
+        ]
+      }
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "work_hours",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "sleep_quality",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "exercise_frequency",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "social_support",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "workload",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "job_satisfaction",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "stress_level",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "anxiety_level",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "mood",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "personal_life_satisfaction",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High multicollinearity (VIF)",
+      "impact": "Medium"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "burnout_score",
+      "issue": "Target Leakage",
+      "recommended_action": "Drop Feature",
+      "reason": "High cardinality (ID-like), High multicollinearity (VIF)",
+      "impact": "High"
+    },
+    {
+      "type": "Risk Mitigation",
+      "scope": "Feature",
+      "target": "burnout_score",
+      "issue": "Multicollinearity",
+      "recommended_action": "Drop or Transform",
+      "reason": "High cardinality (ID-like), High multicollinearity (VIF)",
+      "impact": "Medium"
+    }
+  ],
+  "execution_log": [
+    {
+      "version": "v1.csv",
+      "action": "median_impute",
+      "params": {
+        "feature": "workload"
+      },
+      "description": "Median imputation on workload",
+      "timestamp": "2025-12-19T16:36:22.189743"
+    },
+    {
+      "version": "v2.csv",
+      "action": "rollback",
+      "params": {
+        "rollback_to": "v0_raw.csv"
+      },
+      "description": "Rolled back to v0_raw.csv",
+      "timestamp": "2025-12-19T16:49:08.597039"
+    }
+  ]
+}
