@@ -20,3 +20,7 @@ Thumbs.db
 # IDEs
 .vscode/
 .idea/
+
+# Runtime-generated storage (never commit)
+app/storage/datasets/
+app/storage/reports/

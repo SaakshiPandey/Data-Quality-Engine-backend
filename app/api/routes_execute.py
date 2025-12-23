@@ -13,13 +13,7 @@ class ExecutionRequest(BaseModel):
 
 
 @router.post("/{dataset_id}")
-def execute_preprocessing_step(
-    dataset_id: str,
-    request: ExecutionRequest
-):
-    """
-    Execute a single preprocessing step on the dataset.
-    """
+def execute_preprocessing_step(dataset_id: str, request: ExecutionRequest):
     try:
         result = execute_step(
             dataset_id=dataset_id,
@@ -31,17 +25,11 @@ def execute_preprocessing_step(
             "execution": result
         }
 
-    except FileNotFoundError:
-        raise HTTPException(
-            status_code=404,
-            detail="Dataset not found"
-        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
     except ValueError as e:
-        raise HTTPException(
-            status_code=400,
-            detail=str(e)
-        )
+        raise HTTPException(status_code=400, detail=str(e))
 
     except Exception as e:
         raise HTTPException(

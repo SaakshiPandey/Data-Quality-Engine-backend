@@ -22,12 +22,13 @@ def rollback_to_version(dataset_id: str, target_version: str) -> dict:
     # ---------- Determine next version ----------
     versions = sorted(
         f for f in os.listdir(dataset_dir)
-        if f.startswith("v") and f.endswith(".csv")
+        if f.endswith(".csv") and f.split("_")[0].startswith("v")
     )
 
     latest_version = versions[-1]
     next_version_number = int(latest_version[1]) + 1
-    new_version_name = f"v{next_version_number}.csv"
+    new_version_name = f"v{next_version_number}_rollback_to_{target_version.replace('.csv','')}.csv"
+
     new_version_path = os.path.join(dataset_dir, new_version_name)
 
     # ---------- Create rollback version ----------
@@ -60,4 +61,33 @@ def rollback_to_version(dataset_id: str, target_version: str) -> dict:
         "dataset_id": dataset_id,
         "rolled_back_to": target_version,
         "new_version": new_version_name
+    }
+
+def undo_last_execution(dataset_id: str) -> dict:
+    dataset_dir = os.path.join(DATASET_STORAGE_PATH, dataset_id)
+    log_path = os.path.join(dataset_dir, "execution_log.json")
+
+    if not os.path.exists(log_path):
+        raise ValueError("No execution history found")
+
+    with open(log_path, "r") as f:
+        logs = json.load(f)
+
+    if not logs:
+        raise ValueError("No execution to undo")
+
+    last_step = logs.pop()
+
+    # Remove dataset version file
+    version_file = os.path.join(dataset_dir, last_step["version"])
+    if os.path.exists(version_file):
+        os.remove(version_file)
+
+    # Save updated log
+    with open(log_path, "w") as f:
+        json.dump(logs, f, indent=2)
+
+    return {
+        "undone_version": last_step["version"],
+        "message": f"Undone: {last_step['description']}"
     }

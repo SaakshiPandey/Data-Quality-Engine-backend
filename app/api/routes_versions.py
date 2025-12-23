@@ -1,57 +1,59 @@
 import os
-import json
 from fastapi import APIRouter, HTTPException
+from app.services.versioning_service import undo_last_execution
+from pydantic import BaseModel
 
 DATASET_STORAGE_PATH = "app/storage/datasets"
 
-router = APIRouter(tags=["Dataset Versions"])
+router = APIRouter(prefix="/versions", tags=["Dataset Versions"])
 
 
-@router.get("/versions/{dataset_id}")
+def extract_version_number(filename: str) -> int:
+    name = filename.replace(".csv", "")
+    if not name.startswith("v"):
+        raise ValueError(f"Invalid version file: {filename}")
+
+    number_part = name[1:].split("_")[0]
+    return int(number_part)
+
+
+@router.get("/{dataset_id}")
 def list_dataset_versions(dataset_id: str):
-    """
-    List all dataset versions for a given dataset.
-    """
     dataset_dir = os.path.join(DATASET_STORAGE_PATH, dataset_id)
 
     if not os.path.exists(dataset_dir):
         raise HTTPException(status_code=404, detail="Dataset not found")
 
-    versions = sorted(
-        [
-            f for f in os.listdir(dataset_dir)
-            if f.startswith("v") and f.endswith(".csv")
-        ]
-    )
+    versions = [
+        f for f in os.listdir(dataset_dir)
+        if f.endswith(".csv") and f.startswith("v")
+    ]
+
+    try:
+        versions_sorted = sorted(
+            versions,
+            key=lambda x: extract_version_number(x)
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    latest = versions_sorted[-1] if versions_sorted else None
 
     return {
-        "dataset_id": dataset_id,
-        "versions": versions,
-        "latest": versions[-1] if versions else None
+        "versions": versions_sorted,
+        "latest": latest
     }
 
+@router.post("/undo/{dataset_id}")
+def undo_execution(dataset_id: str):
+    return undo_last_execution(dataset_id)
 
-@router.get("/execution-log/{dataset_id}")
-def get_execution_log(dataset_id: str):
-    """
-    Retrieve execution history for a dataset.
-    """
-    dataset_dir = os.path.join(DATASET_STORAGE_PATH, dataset_id)
-    log_path = os.path.join(dataset_dir, "execution_log.json")
 
-    if not os.path.exists(dataset_dir):
-        raise HTTPException(status_code=404, detail="Dataset not found")
+class RollbackRequest(BaseModel):
+    version: str
+@router.post("/rollback/{dataset_id}")
+def rollback_dataset(dataset_id: str, payload: RollbackRequest):
+    target_version = payload.version
+    return perform_rollback(dataset_id, target_version)
 
-    if not os.path.exists(log_path):
-        return {
-            "dataset_id": dataset_id,
-            "execution_log": []
-        }
 
-    with open(log_path, "r") as f:
-        logs = json.load(f)
-
-    return {
-        "dataset_id": dataset_id,
-        "execution_log": logs
-    }
